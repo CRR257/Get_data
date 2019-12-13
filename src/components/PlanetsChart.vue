@@ -3,7 +3,7 @@
     <Header />
     <div class="home">
       <div class="welcome-page">
-        <router-link class="nav-link" :to="{name: 'Welcome'}" exact>See you later!</router-link>
+        <router-link class="nav-link" :to="{name: 'Welcome'}" exact>Go to main page</router-link>
       </div>
       <main>
         <router-view />

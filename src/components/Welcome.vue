@@ -1,8 +1,18 @@
 <template>
   <div class="welcome">
-    <div class="get-started">
-      <router-link class="nav-link" to="/home">Welcome user!</router-link>
-    </div>
+    <nav>
+      <ul>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/planets">Planets Chart</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/posts">Posts</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/weather">Weather</router-link>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -18,13 +28,30 @@ export default {
 <style scoped>
 .nav-link {
   color: white;
-  position: relative;
-  top: 200px;
-  font-size: 22px;
-  padding: 30px;
+  font-size: 15px;
+  padding: 15px 10px;
   letter-spacing: 1.4px;
   background-color: #1619b4;
-  border: 1px solid grey;
   border-radius: 6px;
+}
+ul {
+  padding: 3px;
+  display: flex;
+}
+.nav-item {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 22px;
+}
+.logo {
+  vertical-align: middle;
+  height: 30px;
+}
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+}
+.router-link-active {
+  color: white;
 }
 </style>

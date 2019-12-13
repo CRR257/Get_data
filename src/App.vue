@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="welcome-page">
-      <router-link class="nav-link" :to="{name: 'Home'}" exact></router-link>
+      <router-link class="nav-link" :to="{name: 'Welcome'}" exact></router-link>
     </div>
     <main>
       <router-view />
