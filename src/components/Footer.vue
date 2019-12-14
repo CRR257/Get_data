@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <h4>by CRR257</h4>
+    <span>byCRR257<i class="fas fa-paw"></i></span>
   </div>
 </template>
 
@@ -14,15 +14,19 @@ export default {
 </script>
 
 <style scoped>
-h4 {
+span {
   position: relative;
-  top: 15px;
+  color: white;
+  font-size: 13px;
+  top: 14px;
 }
 .footer {
   height: 50px;
   background-color: rgba(10, 0, 0, 0.96);
   width: 100%;
-  bottom: 0px;
-  margin-top: 20px;
+  margin-top: -5px;
+}
+.fa-paw {
+  padding-left: 10px;
 }
 </style>

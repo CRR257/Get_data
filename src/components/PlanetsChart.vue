@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <Header :name="title"></Header>
     <div class="home">
       <div class="welcome-page">
         <router-link class="nav-link" :to="{name: 'Welcome'}" exact>Go to main page</router-link>
@@ -11,13 +11,11 @@
       <main>
         <canvas id="planet-chart"></canvas>
       </main>
-      <Footer />
     </div>
   </div>
 </template>
 
 <script>
-import Footer from "./Footer.vue";
 import Header from "./Header.vue";
 import Chart from "chart.js";
 import planetChartData from "../chart-data.js";
@@ -28,7 +26,6 @@ export default {
     msg: String
   },
   components: {
-    Footer,
     Header
   },
   methods: {
@@ -47,7 +44,7 @@ export default {
   },
 
   data() {
-    return { planetChartData };
+    return { planetChartData, title: "Planet's chart" };
   },
   mounted() {
     this.createChart("planet-chart", this.planetChartData);
@@ -56,21 +53,21 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  color: rgb(128, 0, 90);
-}
 .home {
   position: relative;
 }
 .nav-link {
   color: white;
   position: absolute;
-  top: -11px;
   left: 0px;
-  font-size: 18px;
+  font-size: 15px;
   letter-spacing: 1.4px;
   padding: 12px;
-  background-color: grey;
-  border-radius: 6px;
+  background-color: #7a1a1ae3;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.canvas {
+  padding: 3rem 0;
 }
 </style>

@@ -1,9 +1,12 @@
 <template>
   <div class="welcome">
     <nav>
+      <div class="name">GET_DATA_PROJECT</div>
       <ul>
         <li class="nav-item">
-          <router-link class="nav-link" to="/planets">Planets Chart</router-link>
+          <router-link class="nav-link" to="/planets"
+            >Planets Chart</router-link
+          >
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/posts">Posts</router-link>
@@ -13,45 +16,64 @@
         </li>
       </ul>
     </nav>
+    <div>
+      <img class="robot" src="../assets/wood.jpg" aria-hidden="true" />
+    </div>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Footer from "../components/Footer.vue";
+// import Header from "../components/Header.vue";
+
 export default {
   name: "Welcome",
-  props: {
-    msg: String
-  }
+  components: { 
+     Footer,
+  },
 };
 </script>
 
 <style scoped>
+img {
+  width: 100%;
+}
+.name {
+  font-family: "Rubik", sans-serif;
+  font-size: 20px;
+  color: #ff3f3f;
+  position: relative;
+  display: flex;
+  top: 16px;
+  left: 24px;
+}
+.welcome {
+  position: absolute;
+  top: 0px;
+  background-color: white;
+  width: 100%;
+}
 .nav-link {
-  color: white;
   font-size: 15px;
-  padding: 15px 10px;
   letter-spacing: 1.4px;
-  background-color: #1619b4;
-  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
 }
 ul {
-  padding: 3px;
   display: flex;
+  position: relative;
+  top: 13px;
+  right: 30px;
 }
 .nav-item {
   display: inline-block;
-  padding: 5px 10px;
+  padding: 5px 15px;
   font-size: 22px;
+  border-right: 1px solid black;
 }
 .logo {
   vertical-align: middle;
   height: 30px;
-}
-.nav-link {
-  text-decoration: none;
-  color: inherit;
-}
-.router-link-active {
-  color: white;
 }
 </style>

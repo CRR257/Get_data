@@ -1,27 +1,29 @@
 <template>
   <div>
+    <Header :name="title"></Header>
     <div class="welcome-page">
-        <router-link class="nav-link" :to="{name: 'Welcome'}" exact>Go to main page</router-link>
-      </div>
-    <p>Weather</p>
+      <router-link class="nav-link" :to="{ name: 'Welcome' }" exact>
+        Go to main page</router-link
+      >
+    </div>
     <form @submit.prevent="getData">
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <h5>Enter A City:</h5>
-          <div class="input-group">
-            <input type="text" class="form-control" v-model="city" />
-            <div class="input-group-append">
-              <button type="submit">Submit</button>
-            </div>
-          </div>
+      <div class="getdata">
+        <div class="inputdata">
+          <input type="text" v-model="city" placeholder="Enter a city" />
+          <button type="submit">Submit</button>
         </div>
       </div>
     </form>
-    <div>{{this.city}}</div>
     <div v-show="chart != null">
-      <canvas id="myChart"></canvas>
+      <canvas id="chartLine" class="chart"></canvas>
     </div>
-    <div class="alert alert-info" v-show="loading">Loading...</div>
+     <div v-show="chart != null">
+      <canvas id="chartBar" class="chart"></canvas>
+    </div>
+    <div v-if="error">
+        <span class="error" v-for="err in error" :key="err">{{err.message}}</span>
+    </div>
+    <!-- <div class="alert alert-info" v-show="loading">Loading...</div> -->
   </div>
 </template>
 
@@ -29,6 +31,7 @@
 // import { HTTP } from "../services/ApiWeather";
 import axios from "axios";
 import Chart from "chart.js";
+import Header from "./Header.vue";
 
 export default {
   data() {
@@ -38,8 +41,12 @@ export default {
       dates: [],
       temps: [],
       loading: false,
-      errored: false
+      error: [],
+      title: "Weather"
     };
+  },
+  components: {
+    Header
   },
   methods: {
     getData: function() {
@@ -59,17 +66,17 @@ export default {
         })
         .then(response => {
           this.dates = response.data.list.map(list => {
-            console.log(this.dates)
+            console.log(this.dates);
             return list.dt_txt;
           });
 
           this.temps = response.data.list.map(list => {
-            console.log(this.dates)
+            console.log(this.dates);
             return list.main.temp;
           });
 
-          var ctx = document.getElementById("myChart");
-          this.chart = new Chart(ctx, {
+          var chartLine = document.getElementById("chartLine");
+          this.chart = new Chart(chartLine, {
             type: "line",
             data: {
               labels: this.dates,
@@ -86,7 +93,75 @@ export default {
             options: {
               title: {
                 display: true,
-                text: "Temperature with Chart.js"
+                text: "Temperature from " + this.city
+              },
+              tooltips: {
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    var label =
+                      data.datasets[tooltipItem.datasetIndex].label || "";
+
+                    if (label) {
+                      label += ": ";
+                    }
+
+                    label += Math.floor(tooltipItem.yLabel);
+                    return label + "°F";
+                  }
+                }
+              },
+              scales: {
+                xAxes: [
+                  {
+                    type: "time",
+                    time: {
+                      unit: "hour",
+                      displayFormats: {
+                        hour: "M/DD @ hA"
+                      },
+                      tooltipFormat: "MMM. DD @ hA"
+                    },
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Date/Time"
+                    }
+                  }
+                ],
+                yAxes: [
+                  {
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Temperature (°F)"
+                    },
+                    ticks: {
+                      callback: function(value) {
+                        return value + "°F";
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          });
+          var chartBar = document.getElementById("chartBar");
+          this.chart = new Chart(chartBar, {
+            type: "bar",
+            data: {
+              labels: this.dates,
+              datasets: [
+                {
+                  label: "Avg. Temp",
+                  backgroundColor: "rgba(54, 162, 235, 0.5)",
+                  borderColor: "rgb(54, 162, 235)",
+                  fill: false,
+                  data: this.temps
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: "Temperature from " + this.city
               },
               tooltips: {
                 callbacks: {
@@ -139,7 +214,7 @@ export default {
         })
         .catch(error => {
           console.log(error);
-          this.errored = true;
+          this.error.push(error);
         })
         .finally(() => (this.loading = false));
     }
@@ -148,6 +223,36 @@ export default {
 </script>
 
 <style scoped>
+.getdata {
+  padding-top: 2rem;
+}
+.error {
+  position: relative;
+  top: 170px;
+  font-size: 20px;
+}
+.inputdata {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  position: relative;
+  top: 10px;
+}
+input {
+  font-size: 22px;
+  text-indent: 4px;
+  width: 320px;
+}
+button {
+  width: 71px;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  border: unset;
+}
+.chart {
+  padding: 3rem 0;
+}
 .weather-widget {
   display: flex;
   flex-direction: column;
@@ -177,5 +282,16 @@ span {
 .weather-widget__status {
   font-size: 20px;
   margin: 0;
+}
+.nav-link {
+  color: white;
+  position: absolute;
+  left: 0px;
+  font-size: 15px;
+  letter-spacing: 1.4px;
+  padding: 12px;
+  background-color: #7a1a1ae3;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>

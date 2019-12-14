@@ -11,13 +11,13 @@
 
 <script>
 export default {
-  name: "app"
+  name: "app",
 };
 </script>
 
 <style>
 body {
-  background-color: rgba(9, 10, 104, 0.959);
+  margin: 0px;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -27,11 +27,9 @@ body {
   margin-top: 60px;
 }
 .nav-link {
-  color: white;
-  font-size: 22px;
-  letter-spacing: 1.4px;
-  background-color: #1619b4;
-  border: 1px solid grey;
-  border-radius: 6px;
+font-size: 15px;
+    letter-spacing: 1.4px;
+      text-decoration: none;
+  color: inherit;
 }
 </style>
