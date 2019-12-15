@@ -2,8 +2,10 @@
   <div>
     <Header :name="title"></Header>
     <div class="home">
-      <div class="welcome-page">
-        <router-link class="nav-link" :to="{name: 'Welcome'}" exact>Go to main page</router-link>
+      <div>
+        <router-link class="nav-link" :to="{ name: 'Welcome' }" exact
+          >Go to main page</router-link
+        >
       </div>
       <main>
         <router-view />
@@ -67,7 +69,7 @@ export default {
   border-radius: 2px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.canvas {
+canvas {
   padding: 3rem 0;
 }
 </style>

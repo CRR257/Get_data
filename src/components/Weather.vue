@@ -1,29 +1,34 @@
 <template>
   <div>
     <Header :name="title"></Header>
-    <div class="welcome-page">
+    <div>
       <router-link class="nav-link" :to="{ name: 'Welcome' }" exact>
         Go to main page</router-link
       >
     </div>
-    <form @submit.prevent="getData">
-      <div class="getdata">
-        <div class="inputdata">
-          <input type="text" v-model="city" placeholder="Enter a city" />
-          <button type="submit">Submit</button>
+    <div>
+      <form @submit.prevent="getData">
+        <div class="getdata">
+          <div class="inputdata">
+            <input type="text" v-model="city" placeholder="Enter a city" />
+            <button type="submit">Submit</button>
+          </div>
+        </div>
+      </form>
+      <div v-show="chart != null && errorCount === 0">
+        <canvas id="chartLine" class="chart"></canvas>
+      </div>
+      <div v-show="chart != null && errorCount === 0">
+        <canvas id="chartBar" class="chart"></canvas>
+      </div>
+      <div v-if="error && errorCount === 1">
+        <div class="error" v-for="err in error" :key="err">
+          <span class="error__message">{{ err.message }}</span>
+          <span class="error__message">Please enter a correct city</span>
         </div>
       </div>
-    </form>
-    <div v-show="chart != null">
-      <canvas id="chartLine" class="chart"></canvas>
+      <!-- <div class="alert alert-info" v-show="loading">Loading...</div> -->
     </div>
-     <div v-show="chart != null">
-      <canvas id="chartBar" class="chart"></canvas>
-    </div>
-    <div v-if="error">
-        <span class="error" v-for="err in error" :key="err">{{err.message}}</span>
-    </div>
-    <!-- <div class="alert alert-info" v-show="loading">Loading...</div> -->
   </div>
 </template>
 
@@ -42,6 +47,7 @@ export default {
       temps: [],
       loading: false,
       error: [],
+      errorCount: 0,
       title: "Weather"
     };
   },
@@ -51,6 +57,8 @@ export default {
   methods: {
     getData: function() {
       this.loading = true;
+      this.errorCount = 0;
+      this.error = [];
 
       if (this.chart != null) {
         this.chart.destroy();
@@ -213,8 +221,8 @@ export default {
           });
         })
         .catch(error => {
-          console.log(error);
           this.error.push(error);
+          this.errorCount += 1;
         })
         .finally(() => (this.loading = false));
     }
@@ -230,18 +238,26 @@ export default {
   position: relative;
   top: 170px;
   font-size: 20px;
+  display: flex;
+  flex-direction: column;
 }
 .inputdata {
   display: flex;
   justify-content: center;
   height: 40px;
   position: relative;
-  top: 10px;
+  top: 3rem;
 }
 input {
   font-size: 22px;
-  text-indent: 4px;
+  text-indent: 8px;
   width: 320px;
+  border: 1px solid #474646;
+}
+span {
+  font-size: 21px;
+  font-weight: 400;
+  margin-bottom: 15px;
 }
 button {
   width: 71px;
@@ -251,7 +267,7 @@ button {
   border: unset;
 }
 .chart {
-  padding: 3rem 0;
+  padding: 4rem 0;
 }
 .weather-widget {
   display: flex;
@@ -259,12 +275,10 @@ button {
   align-items: center;
   color: #429ea6;
 }
-
 .weather-widget__city {
   font-size: 20px;
   margin: 0;
 }
-
 .weather-widget__temp {
   display: flex;
   align-items: flex-start;
@@ -273,12 +287,6 @@ button {
   font-weight: 200;
   margin: 0;
 }
-span {
-  font-size: 30px;
-  font-weight: 400;
-  margin-top: 35px;
-}
-
 .weather-widget__status {
   font-size: 20px;
   margin: 0;

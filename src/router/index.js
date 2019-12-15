@@ -5,6 +5,7 @@ import Welcome from "../components/Welcome.vue";
 import PlanetsChart from "../components/PlanetsChart.vue";
 import Posts from "../components/Posts.vue";
 import Weather from "../components/Weather.vue";
+import Form from "../components/Form.vue";
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ export default new Router({
       path: "/weather",
       name: "Weather",
       component: Weather
+    },
+    {
+      path: "/form",
+      name: "Form",
+      component: Form
     }
   ]
 });

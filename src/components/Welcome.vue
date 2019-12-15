@@ -1,7 +1,7 @@
 <template>
   <div class="welcome">
+    <div class="name">GET_DATA_PROJECT</div>
     <nav>
-      <div class="name">GET_DATA_PROJECT</div>
       <ul>
         <li class="nav-item">
           <router-link class="nav-link" to="/planets"
@@ -14,6 +14,9 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/weather">Weather</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/form">Form</router-link>
+        </li>
       </ul>
     </nav>
     <div>
@@ -25,19 +28,22 @@
 
 <script>
 import Footer from "../components/Footer.vue";
-// import Header from "../components/Header.vue";
 
 export default {
   name: "Welcome",
-  components: { 
-     Footer,
-  },
+  components: {
+    Footer
+  }
 };
 </script>
 
 <style scoped>
 img {
   width: 100%;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
 }
 .name {
   font-family: "Rubik", sans-serif;
@@ -53,6 +59,13 @@ img {
   top: 0px;
   background-color: white;
   width: 100%;
+}
+.userinfo {
+  display: flex;
+  position: absolute;
+  top: 64px;
+  right: 0px;
+  padding-right: 10px;
 }
 .nav-link {
   font-size: 15px;
