@@ -2,25 +2,24 @@
   <div>
     <Header :name="title"></Header>
     <div>
-      <router-link class="nav-link" :to="{ name: 'Welcome' }" exact>
-        Go to main page</router-link
+      <router-link class="nav-link" :to="{ name: 'Welcome' }" exact
+        >Go to main page</router-link
       >
     </div>
     <div class="form">
       <div class="form__user">
         <div>
-          <input type="text" v-model="user.username" placeholder="username" />
+          <input type="text" v-model="user.username" placeholder="Username" />
         </div>
         <select v-model="user.planetSelected">
           <option
             v-for="option in options"
             :key="option"
             v-bind:value="option.text"
+            >{{ option.text }}</option
           >
-            {{ option.text }}
-          </option>
         </select>
-        <div class="user__selected" v-if="submitted">
+        <div class="user__selected" v-if="submitted && !showUserOptions">
           <span
             >Thanks {{ user.username }} for participate to our inquest.</span
           >
@@ -32,7 +31,7 @@
       <ul v-if="showUserOptions">
         <!-- <li v-for="u in users" :key="u">
           {{ u.username }} - {{ u.planetSelected }}
-        </li> -->
+        </li>-->
         <li>Mercury: {{ this.votesForMercury }}</li>
         <li>Venus: {{ this.votesForVenus }}</li>
         <li>Earth: {{ this.votesForEarth }}</li>
@@ -181,6 +180,15 @@ export default {
           // }
           this.showUserOptions = true;
           var planetsChart = document.getElementById("planetsChart");
+          var datasets = [this.votesForMercury,
+                    this.votesForVenus,
+                    this.votesForEarth,
+                    this.votesForMars,
+                    this.votesForJupiter,
+                    this.votesForSaturn,
+                    this.votesForUranus,
+                    this.votesForNeptune,
+                    this.votesForPluto];
           this.chart = new Chart(planetsChart, {
             type: "bar",
             data: {
@@ -198,6 +206,7 @@ export default {
               datasets: [
                 {
                   label: "number of votes",
+                  barPercentage: 0.7,
                   backgroundColor: "rgba(54, 162, 235, 0.5)",
                   borderColor: "rgb(54, 162, 235)",
                   data: [
@@ -229,6 +238,22 @@ export default {
                       }
                     }
                   ]
+                },
+                animation: {
+                  onComplete: function() {
+                    var dataSet = this.chart.getDatasetMeta(0);
+                    dataSet.data.forEach(elm => {
+                      if (datasets[elm._index] == 0) {
+                        planetsChart.fillStyle = "#F00";
+                        planetsChart.fillRect(
+                          elm._model.x - elm._view.width / 2,
+                          elm._model.y - 1,
+                          elm._view.width,
+                          2
+                        );
+                      }
+                    });
+                  }
                 }
               }
             }
@@ -261,12 +286,11 @@ export default {
   flex-direction: column;
 }
 select {
-  width: 270px;
+  width: 320px;
   height: 30px;
   border: unset;
   border-radius: 2px;
-  background-color: #817e7e;
-  color: white;
+  border: 1px solid #474646;
   margin: 0 auto;
   position: relative;
   top: 1rem;
