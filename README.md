@@ -5,7 +5,7 @@ App to practice how to get data:
     - Planet's chart section: get hardcoded data from my app and make a chart.
     - Posts section: get data from an API
     - Weather secttion: make a city's request to an API and get temperature's results visualitzed in a chart
-    - Forms: send and get data using firebase store
+    - Planets Survey: send result's survey and get data using firebase store. Show results using chart.js
 
 ### Compiles and hot-reloads for development
 ```

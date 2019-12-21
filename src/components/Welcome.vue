@@ -20,7 +20,7 @@
       </ul>
     </nav>
     <div>
-      <img src="../assets/wood.jpg" aria-hidden="true" />
+      <img src="../assets/planet.jpg" aria-hidden="true" />
     </div>
     <Footer />
   </div>
