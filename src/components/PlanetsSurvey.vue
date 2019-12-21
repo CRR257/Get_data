@@ -27,7 +27,7 @@
         </div>
         <button @click="submit">Submit</button>
       </div>
-      <button @click="fetchData">Get data</button>
+      <button @click="fetchData" class="survey">Show survey</button>
       <ul v-if="showUserOptions">
         <!-- <li v-for="u in users" :key="u">
           {{ u.username }} - {{ u.planetSelected }}
@@ -54,11 +54,10 @@ import Header from "../components/Header.vue";
 import Chart from "chart.js";
 
 export default {
-  name: "Form",
   data() {
     return {
       chart: null,
-      title: "Form",
+      title: "Planet's Survey",
       loading: false,
       submitted: false,
       showUserOptions: false,
@@ -97,6 +96,7 @@ export default {
   methods: {
     submit() {
       this.submitted = true;
+      this.showUserOptions = false;
       //we can use $http bc we installed VueResource
       this.$http.post("", this.user).then(
         response => {
@@ -115,17 +115,20 @@ export default {
         })
         .then(data => {
           const resultArray = [];
+            this.votesForMercury =  0,
+            this.votesForVenus = 0,
+            this.votesForEarth = 0,
+            this.votesForMars = 0,
+            this.votesForJupiter = 0,
+            this.votesForSaturn = 0,
+            this.votesForUranus = 0,
+            this.votesForNeptune = 0,
+            this.votesForPluto = 0
           for (let key in data) {
             resultArray.push(data[key]);
           }
           this.users = resultArray;
           for (let j in this.users) {
-            // if (
-            //   this.getPlanetsSelected.indexOf(this.users[j].planetSelected) ===
-            //   -1
-            // ) {
-            //   this.getPlanetsSelected.push(this.users[j].planetSelected);
-            // }
             if (this.users[j].planetSelected === "Mercury") {
               this.votesForMercury += 1;
             } else if (this.users[j].planetSelected === "Venus") {
@@ -146,49 +149,18 @@ export default {
               this.votesForPluto += 1;
             }
           }
-
-          // switch (this.users) {
-          //   case this.users.planetSelected === "Mercury":
-          //     this.votesForMercury += 1;
-          // }
-          // for (var i = 0; this.getPlanetsSelected.length; i++) {
-          //   if (this.getPlanetsSelected[i] === "Mercury") {
-          //     this.votesForMercury += 1;
-          //   } else if (this.getPlanetsSelected[i] === "Venus") {
-          //     this.votesForVenus += 1;
-          //   }
-          // }
-          //   } else if (this.getPlanetsSelected[i] === "Earth") {
-          //     this.votesForEarth += 1;
-          //   } else if (this.getPlanetsSelected[i] === "Mars") {
-          //     this.votesForMars += 1;
-          //   } else if (this.getPlanetsSelected[i] === "Jupiter") {
-          //     this.votesForJupiter += 1;
-          //   } else if (this.getPlanetsSelected[i] === "Saturn") {
-          //     this.votesForSaturn += 1;
-          //   } else if (this.getPlanetsSelected[i] === "Neptune") {
-          //     this.votesForNeptune += 1;
-          //   } else if (this.getPlanetsSelected[i] === "Uranus") {
-          //     this.votesForUranus += 1;
-          //   } else if (this.getPlanetsSelected[i] === "Pluto") {
-          //     this.votesForPluto += 1;
-          //   }
-          //   // console.log(this.getPlanetsSelected);
-          //   // console.log(this.votesForNeptune);
-          //   // console.log(this.votesForSaturn);
-
-          // }
           this.showUserOptions = true;
           var planetsChart = document.getElementById("planetsChart");
-          var datasets = [this.votesForMercury,
-                    this.votesForVenus,
-                    this.votesForEarth,
-                    this.votesForMars,
-                    this.votesForJupiter,
-                    this.votesForSaturn,
-                    this.votesForUranus,
-                    this.votesForNeptune,
-                    this.votesForPluto];
+          var datasets = [
+            this.votesForMercury,
+            this.votesForVenus,
+            this.votesForEarth,
+            this.votesForMars,
+            this.votesForJupiter,
+            this.votesForSaturn,
+            this.votesForUranus,
+            this.votesForNeptune,
+            this.votesForPluto];
           this.chart = new Chart(planetsChart, {
             type: "bar",
             data: {
@@ -338,24 +310,33 @@ button {
   font-size: 15px;
   letter-spacing: 1.3px;
 }
+.survey {
+  width: 150px;
+  height: 47px;
+}
 ul {
   list-style-type: none;
   width: max-content;
   min-width: 250px;
   margin: 0 auto;
-  border: 1px solid grey;
+  border: 1px solid black;
   position: relative;
   top: 15px;
   padding: 1.5rem;
   border-radius: 2px;
-  color: white;
-  background-color: #181717;
   font-size: 18px;
   letter-spacing: 1.3px;
+  text-align: left;
+}
+li {
+  position: relative;
+  left: 4rem;
+  padding: 3px 0;
 }
 .chart {
   position: relative;
   top: 7rem;
   padding: 3rem 0;
 }
+
 </style>

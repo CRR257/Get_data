@@ -15,12 +15,12 @@
           <router-link class="nav-link" to="/weather">Weather</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/form">Form</router-link>
+          <router-link class="nav-link" to="/planets-survey">Planet's survey</router-link>
         </li>
       </ul>
     </nav>
     <div>
-      <img class="robot" src="../assets/wood.jpg" aria-hidden="true" />
+      <img src="../assets/wood.jpg" aria-hidden="true" />
     </div>
     <Footer />
   </div>
