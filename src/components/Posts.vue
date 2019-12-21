@@ -10,12 +10,12 @@
       <ul v-if="posts && posts.length">
         <li v-for="post in posts" :key="post">
           <p>
-            <strong>Post ID:{{ post.id }}</strong>
+            <strong>Post ID:</strong>
+              {{ post.id }}
           </p>
           <p>
-            <strong>{{ post.title }}</strong>
-          </p>
-          <p class="text">{{ post.body }}</p>
+            <strong>Title:</strong>
+            {{ post.title }}</p>
         </li>
       </ul>
       <ul v-if="errors && errors.length">
@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import { HTTP } from "../services/ApiTypicode";
+import axios from "axios";
+// import { HTTP } from "../services/ApiTypicode";
 import Header from "./Header.vue";
 
 export default {
@@ -40,17 +41,39 @@ export default {
   components: {
     Header
   },
-  created() {
-    HTTP.get("posts")
-      .then(response => {
-        this.posts = response.data;
-        console.log(typeof this.posts);
-        console.log(this.posts);
-      })
-      .catch(e => {
-        this.errors.push(e);
-      });
+  mounted() {
+    this.getPosts();
+    console.log(this.posts)
+  },
+  methods: {
+    getPosts: function() {
+      axios
+        .get("http://jsonplaceholder.typicode.com/todos", {
+          params: {
+            headers: {
+              Authorization: "Bearer {token}"
+            }
+          }
+        })
+        .then(response => {
+          this.posts = response.data;
+          console.log(response, response.data)
+        })
+        .catch(e => {
+          this.errors.push(e);
+      }
+    );
+    }
   }
+  // created() {
+  //   HTTP.get("posts")
+  //     .then(response => {
+  //       this.posts = response.data;
+  //     })
+  //     .catch(e => {
+  //       this.errors.push(e);
+  //     });
+  // }
 };
 </script>
 

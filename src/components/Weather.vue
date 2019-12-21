@@ -74,12 +74,10 @@ export default {
         })
         .then(response => {
           this.dates = response.data.list.map(list => {
-            console.log(this.dates);
             return list.dt_txt;
           });
 
           this.temps = response.data.list.map(list => {
-            console.log(this.dates);
             return list.main.temp;
           });
 
