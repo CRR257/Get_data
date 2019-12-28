@@ -13,7 +13,6 @@ export default {
 
 <style scoped>
 span {
-  color: white;
   font-weight: 600;
   font-size: 19px;
   position: relative;
@@ -22,7 +21,7 @@ span {
 }
 .header {
   height: 60px;
-  background-color: rgba(10, 0, 0, 0.96);
+  border-bottom: 1px solid black;
   position: absolute;
   top: 0px;
   width: 100%;

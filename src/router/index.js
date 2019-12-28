@@ -3,13 +3,14 @@ import Router from "vue-router";
 
 import Welcome from "../components/Welcome.vue";
 import PlanetsChart from "../components/PlanetsChart.vue";
-import Posts from "../components/Posts.vue";
+import Bitcoin from "../components/Bitcoin.vue";
 import Weather from "../components/Weather.vue";
 import PlanetsSurvey from "../components/PlanetsSurvey.vue";
 
 Vue.use(Router);
 
 export default new Router({
+  mode: "history",
   routes: [
     {
       path: "/",
@@ -22,9 +23,9 @@ export default new Router({
       component: PlanetsChart
     },
     {
-      path: "/posts",
-      name: "Posts",
-      component: Posts
+      path: "/bitcoin",
+      name: "Bitcoin",
+      component: Bitcoin
     },
     {
       path: "/weather",
