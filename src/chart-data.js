@@ -40,7 +40,6 @@ export const planetChartData = {
         borderWidth: 3
       },
       {
-        // another line graph
         label: "Planet Mass (x1,000 km)",
         type: "bar",
         data: [4.8, 12.1, 12.7, 6.7, 139.8, 116.4, 50.7, 49.2],

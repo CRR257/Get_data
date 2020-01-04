@@ -1,24 +1,6 @@
 <template>
   <div class="welcome">
-    <div class="name">GET_DATA_PROJECT</div>
-    <nav>
-      <ul>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/planets"
-            >Planets Chart</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/bitcoin">Bitcoin</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/weather">Weather</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/planets-survey">Planet's survey</router-link>
-        </li>
-      </ul>
-    </nav>
+    <Header />
     <div>
       <img src="../assets/planet.jpg" aria-hidden="true" />
     </div>
@@ -28,31 +10,24 @@
 
 <script>
 import Footer from "../components/Footer.vue";
+import Header from "../components/Header.vue";
 
 export default {
   name: "Welcome",
   components: {
-    Footer
+    Footer,
+    Header
   }
 };
 </script>
 
 <style scoped>
 img {
-  width: 100%;
+  width: 80%;
 }
 nav {
   display: flex;
   justify-content: space-between;
-}
-.name {
-  font-family: "Rubik", sans-serif;
-  font-size: 20px;
-  color: #ff3f3f;
-  position: relative;
-  display: flex;
-  top: 16px;
-  left: 24px;
 }
 .welcome {
   position: absolute;
