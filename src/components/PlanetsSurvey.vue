@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Header :name="title"></Header>
-    <div>
-      <router-link class="nav-link" :to="{ name: 'Welcome' }" exact
-        >Go to main page</router-link
-      >
+    <Header />
+    <div class="content">
+      <span class="content-title" :name="title">{{ title }}</span>
+      <span class="content-description" :name="description">{{
+        description
+      }}</span>
     </div>
     <div class="form">
       <div class="form__user">
@@ -19,16 +20,38 @@
             >{{ option.text }}</option
           >
         </select>
-        <div class="user__selected" v-if="submitted && !showUserOptions">
-          <span
-            >Thanks {{ user.username }} for participate to our inquest.</span
-          >
-          <span>Select Get data and you will see the results.</span>
+        <div class="user__selected" v-if="!submitted && !user.username">
+          <span class="content-description">Please, enter your name</span>
         </div>
-        <button @click="submit">Submit</button>
+        <div
+          class="user__selected"
+          v-if="!submitted && user.username && !user.planetSelected"
+        >
+          <span class="content-description"
+            >Please {{ user.username }}, select a planet from the list</span
+          >
+        </div>
+        <div
+          class="user__selected"
+          v-if="submitted && user.username && user.planetSelected"
+        >
+          <span class="content-description"
+            >Thanks {{ user.username }} for participate to our planet's chart
+            😊</span
+          >
+          <span class="content-description"
+            >Select Show survey button and you will see a chart with all
+            results.</span
+          >
+        </div>
       </div>
-      <button @click="fetchData" class="survey">Show survey</button>
-      <ul v-if="showUserOptions">
+      <div class="submit">
+        <button @click="submit">Submit</button>
+        <button @click="showSurvey" class="survey" :name="titleButton">
+          {{ titleButton }}
+        </button>
+      </div>
+      <ul v-if="showUserOptions && showUsersSurvey">
         <!-- <li v-for="u in users" :key="u">
           {{ u.username }} - {{ u.planetSelected }}
         </li>-->
@@ -43,14 +66,14 @@
         <li>Pluto: {{ this.votesForPluto }}</li>
       </ul>
     </div>
-    <div v-show="chart != null">
-      <canvas id="planetsChart" class="chart"></canvas>
+    <div class="chart" v-show="chart != null && showUsersSurvey">
+      <canvas id="planetsChart"></canvas>
     </div>
   </div>
 </template>
 
 <script>
-import Header from "../components/Header.vue";
+import Header from "./Header.vue";
 import Chart from "chart.js";
 
 export default {
@@ -58,7 +81,10 @@ export default {
     return {
       chart: null,
       title: "Planet's Survey",
-      loading: false,
+      description:
+        "User can vote his favourite planet (submit button) and see a chart with each plante's votes (show survey button)",
+      titleButton: "Show survey",
+      showUsersSurvey: false,
       submitted: false,
       showUserOptions: false,
       error: [],
@@ -95,7 +121,9 @@ export default {
   },
   methods: {
     submit() {
-      this.submitted = true;
+      if (this.user.username && this.user.planetSelected) {
+        this.submitted = true;
+      }
       this.showUserOptions = false;
       //we can use $http bc we installed VueResource
       this.$http.post("", this.user).then(
@@ -107,7 +135,10 @@ export default {
         }
       );
     },
-    fetchData() {
+    showSurvey() {
+      this.titleButton =
+        this.titleButton === "Show survey" ? "Hide survey" : "Show survey";
+      this.showUsersSurvey = this.showUsersSurvey === false ? true : false;
       this.$http
         .get("")
         .then(response => {
@@ -115,15 +146,15 @@ export default {
         })
         .then(data => {
           const resultArray = [];
-            this.votesForMercury =  0,
-            this.votesForVenus = 0,
-            this.votesForEarth = 0,
-            this.votesForMars = 0,
-            this.votesForJupiter = 0,
-            this.votesForSaturn = 0,
-            this.votesForUranus = 0,
-            this.votesForNeptune = 0,
-            this.votesForPluto = 0
+          (this.votesForMercury = 0),
+            (this.votesForVenus = 0),
+            (this.votesForEarth = 0),
+            (this.votesForMars = 0),
+            (this.votesForJupiter = 0),
+            (this.votesForSaturn = 0),
+            (this.votesForUranus = 0),
+            (this.votesForNeptune = 0),
+            (this.votesForPluto = 0);
           for (let key in data) {
             resultArray.push(data[key]);
           }
@@ -160,7 +191,8 @@ export default {
             this.votesForSaturn,
             this.votesForUranus,
             this.votesForNeptune,
-            this.votesForPluto];
+            this.votesForPluto
+          ];
           this.chart = new Chart(planetsChart, {
             type: "bar",
             data: {
@@ -235,22 +267,35 @@ export default {
         .catch(error => {
           this.error.push(error);
           this.errorCount += 1;
-        })
-        .finally(() => (this.loading = false));
+        });
+      // .finally(() => (this.loading = false));
     }
   }
 };
 </script>
 
 <style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 68%;
+  margin: 0 auto;
+}
+.content-title {
+  font-size: 15px;
+  padding-bottom: 1rem;
+  text-decoration: underline;
+  font-weight: 700;
+}
+.content-description {
+  font-size: 12px;
+  width: 68%;
+  margin: 0 auto;
+}
 .form {
   display: flex;
-  position: relative;
   justify-content: center;
   flex-direction: column;
-  top: 5rem;
-  right: 0px;
-  padding-right: 10px;
 }
 .form__user {
   display: flex;
@@ -288,26 +333,21 @@ input {
   border: 1px solid #474646;
   height: 30px;
 }
-.nav-link {
-  position: absolute;
-  border: 1px solid grey;
-  left: 0px;
-  font-size: 15px;
-  letter-spacing: 1.4px;
-  padding: 12px;
-  border-radius: 2px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.submit {
+  display: flex;
+  margin: 0 auto;
 }
 button {
   width: 100px;
   margin: 0 auto;
-  margin-top: 30px;
+  margin: 30px;
   color: white;
   background-color: black;
   border: none;
   padding: 10px;
   font-size: 15px;
   letter-spacing: 1.3px;
+  cursor: pointer;
 }
 .survey {
   width: 150px;
@@ -316,26 +356,41 @@ button {
 ul {
   list-style-type: none;
   width: max-content;
-  min-width: 250px;
+  width: 150px;
   margin: 0 auto;
   border: 1px solid black;
   position: relative;
   top: 15px;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 2px;
-  font-size: 18px;
-  letter-spacing: 1.3px;
+  font-size: 12px;
   text-align: left;
 }
 li {
   position: relative;
-  left: 4rem;
+  left: 2rem;
   padding: 3px 0;
 }
 .chart {
-  position: relative;
-  top: 7rem;
-  padding: 3rem 0;
+  width: 80%;
+  margin: 0 auto;
+  padding: 4rem 0 6rem 0;
+}
+#planetsChart {
+  width: 80%;
+}
+@media screen and (max-width: 700px) {
+  .content {
+    padding: 7rem 0 3rem 0;
+  }
 }
 
+@media (min-width: 700px) {
+  .content {
+    padding: 10rem 0 3rem 0;
+  }
+  .content-title {
+    font-size: 17px;
+  }
+}
 </style>

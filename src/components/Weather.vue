@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Header :name="title"></Header>
-    <div>
-      <router-link class="nav-link" :to="{ name: 'Welcome' }" exact>
-        Go to main page</router-link
-      >
+    <Header />
+    <div class="content">
+      <span class="content-title" :name="title">{{ title }}</span>
+      <span class="content-description" :name="description">{{
+        description
+      }}</span>
     </div>
     <div>
       <form @submit.prevent="getData">
@@ -15,11 +16,11 @@
           </div>
         </div>
       </form>
-      <div v-show="chart != null && errorCount === 0">
-        <canvas id="chartLine" class="chart"></canvas>
+      <div class="chart" v-show="chart != null && errorCount === 0">
+        <canvas id="chartLine" class="chart-weather"></canvas>
       </div>
-      <div v-show="chart != null && errorCount === 0">
-        <canvas id="chartBar" class="chart"></canvas>
+      <div class="chart" v-show="chart != null && errorCount === 0">
+        <canvas id="chartBar" class="chart-weather"></canvas>
       </div>
       <div v-if="error && errorCount === 1">
         <div class="error" v-for="err in error" :key="err">
@@ -27,13 +28,11 @@
           <span class="error__message">Please enter a correct city</span>
         </div>
       </div>
-      <!-- <div class="alert alert-info" v-show="loading">Loading...</div> -->
     </div>
   </div>
 </template>
 
 <script>
-// import { HTTP } from "../services/ApiWeather";
 import axios from "axios";
 import Chart from "chart.js";
 import Header from "./Header.vue";
@@ -48,7 +47,8 @@ export default {
       loading: false,
       error: [],
       errorCount: 0,
-      title: "Weather"
+      title: "Weather",
+      description: "Serach a city and get his weather",
     };
   },
   components: {
@@ -229,32 +229,29 @@ export default {
 </script>
 
 <style scoped>
-.getdata {
-  padding-top: 2rem;
-}
 .error {
   position: relative;
-  top: 170px;
-  font-size: 20px;
+  top: 100px;
   display: flex;
   flex-direction: column;
+  border: 1px solid grey;
+  padding: 1rem;
+  width: 30%;
+  margin: 0 auto;
+  font-size: 12px;
 }
 .inputdata {
   display: flex;
   justify-content: center;
-  height: 40px;
-  position: relative;
-  top: 3rem;
+  height: 35px;
 }
 input {
-  font-size: 22px;
+  font-size: 15px;
   text-indent: 8px;
-  width: 320px;
+  width: 250px;
   border: 1px solid #474646;
 }
 span {
-  font-size: 21px;
-  font-weight: 400;
   margin-bottom: 15px;
 }
 button {
@@ -263,9 +260,6 @@ button {
   color: white;
   font-size: 16px;
   border: unset;
-}
-.chart {
-  padding: 4rem 0;
 }
 .weather-widget {
   display: flex;
@@ -289,14 +283,41 @@ button {
   font-size: 20px;
   margin: 0;
 }
-.nav-link {
-  position: absolute;
-  border: 1px solid grey;
-  left: 0px;
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 68%;
+  margin: 0 auto;
+}
+.content-title {
   font-size: 15px;
-  letter-spacing: 1.4px;
-  padding: 12px;
-  border-radius: 2px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding-bottom: 1rem;
+  text-decoration: underline;
+  font-weight: 700;
+}
+.content-description {
+  font-size: 12px;
+}
+.chart {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 4rem;
+}
+.chart-weather {
+  width: 100% !important;
+}
+@media screen and (max-width: 700px) {
+  .content {
+    padding: 7rem 0 3rem 0;
+  }
+}
+
+@media (min-width: 700px) {
+  .content {
+    padding: 10rem 0 3rem 0;
+  }
+  .content-title {
+    font-size: 17px;
+  }
 }
 </style>
