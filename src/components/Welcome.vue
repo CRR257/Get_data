@@ -4,19 +4,22 @@
     <div>
       <img src="../assets/planet.jpg" aria-hidden="true" />
     </div>
+    <WelcomeCards />
     <Footer />
   </div>
 </template>
 
 <script>
-import Footer from "../components/Footer.vue";
 import Header from "../components/Header.vue";
+import WelcomeCards from "./WelcomeCards.vue";
+import Footer from "../components/Footer.vue";
 
 export default {
   name: "Welcome",
   components: {
-    Footer,
-    Header
+    Header,
+    WelcomeCards,
+    Footer
   }
 };
 </script>

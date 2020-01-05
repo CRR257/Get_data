@@ -48,7 +48,7 @@ export default {
       error: [],
       errorCount: 0,
       title: "Weather",
-      description: "Serach a city and get his weather",
+      description: "Search a city and get his weather in a chart"
     };
   },
   components: {

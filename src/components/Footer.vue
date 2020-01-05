@@ -25,7 +25,6 @@ span {
   background-color: rgba(10, 0, 0, 0.96);
   width: 80%;
   margin: 0 auto;
-  margin-top: -5px;
 }
 .fa-paw {
   padding-left: 10px;

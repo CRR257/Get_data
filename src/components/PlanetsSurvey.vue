@@ -127,11 +127,11 @@ export default {
       this.showUserOptions = false;
       //we can use $http bc we installed VueResource
       this.$http.post("", this.user).then(
-        response => {
-          console.log(response);
-        },
+        // response => {
+        //   console.log(response);
+        // },
         error => {
-          console.log(error);
+          throw new Error(error);
         }
       );
     },

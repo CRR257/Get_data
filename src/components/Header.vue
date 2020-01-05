@@ -6,7 +6,7 @@
       <span class="navicon"></span>
     </label>
     <ul class="menu">
-       <li class="nav-item">
+      <li class="nav-item">
         <router-link class="nav-link" to="/">Welcome</router-link>
       </li>
       <li class="nav-item">
@@ -44,7 +44,7 @@ a {
 
 .header {
   background-color: #fff;
-  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
+  /* box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1); */
   position: fixed;
   width: 80%;
   margin-left: 10%;
