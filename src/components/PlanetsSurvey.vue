@@ -52,9 +52,6 @@
         </button>
       </div>
       <ul v-if="showUserOptions && showUsersSurvey">
-        <!-- <li v-for="u in users" :key="u">
-          {{ u.username }} - {{ u.planetSelected }}
-        </li>-->
         <li>Mercury: {{ this.votesForMercury }}</li>
         <li>Venus: {{ this.votesForVenus }}</li>
         <li>Earth: {{ this.votesForEarth }}</li>
@@ -127,11 +124,11 @@ export default {
       this.showUserOptions = false;
       //we can use $http bc we installed VueResource
       this.$http.post("", this.user).then(
-        response => {
-          console.log(response);
-        },
+        // response => {
+        //   console.log(response);
+        // },
         error => {
-          console.log(error);
+          throw new Error(error);
         }
       );
     },
@@ -268,7 +265,6 @@ export default {
           this.error.push(error);
           this.errorCount += 1;
         });
-      // .finally(() => (this.loading = false));
     }
   }
 };
