@@ -52,9 +52,6 @@
         </button>
       </div>
       <ul v-if="showUserOptions && showUsersSurvey">
-        <!-- <li v-for="u in users" :key="u">
-          {{ u.username }} - {{ u.planetSelected }}
-        </li>-->
         <li>Mercury: {{ this.votesForMercury }}</li>
         <li>Venus: {{ this.votesForVenus }}</li>
         <li>Earth: {{ this.votesForEarth }}</li>
@@ -268,7 +265,6 @@ export default {
           this.error.push(error);
           this.errorCount += 1;
         });
-      // .finally(() => (this.loading = false));
     }
   }
 };

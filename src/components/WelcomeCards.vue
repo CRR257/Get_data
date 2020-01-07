@@ -23,7 +23,7 @@ export default {
         {
           title: "Planet's Survey",
           about:
-            "User can vote his favourite planet and see a chart with each plante's votes"
+            "Vote your favourite planet and see a chart with each plante's votes"
         },
         {
           title: "Bitcoin",
@@ -31,7 +31,7 @@ export default {
         },
         {
           title: "Weather",
-          about: "Search a city and get his weather in a chart"
+          about: "Serch a city and get his weather in a chart"
         }
       ]
     };
@@ -41,7 +41,7 @@ export default {
 
 <style scoped>
 .container {
-  padding: 1rem;
+  padding: 1rem 0 1rem 0;
 }
 .projects {
   display: flex;
@@ -55,12 +55,10 @@ export default {
   justify-content: center;
 }
 .projects-cards {
-  flex: 0 0 200px;
   margin: 10px;
   border: 1px solid #ccc;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   padding: 1.5rem;
-  min-height: 150px;
   background-color: #f1f1f1;
 }
 .project {
@@ -73,5 +71,18 @@ export default {
 }
 .project-about {
   margin-top: 14px;
+}
+@media screen and (max-width: 700px) {
+  .projects-cards {
+    flex: 0 0 110px;
+    height: 110px;
+  }
+}
+
+@media (min-width: 700px) {
+  .projects-cards {
+    flex: 0 0 150px;
+    height: 150px;
+  }
 }
 </style>
