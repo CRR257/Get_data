@@ -23,8 +23,6 @@ span {
 .footer {
   height: 50px;
   background-color: rgba(10, 0, 0, 0.96);
-  width: 80%;
-  margin: 0 auto;
 }
 .fa-paw {
   padding-left: 10px;

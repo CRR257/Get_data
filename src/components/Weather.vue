@@ -47,7 +47,7 @@ export default {
       loading: false,
       error: [],
       errorCount: 0,
-      title: "Weather",
+      title: "Weather 🌞 🌦️ 🌧️",
       description: "Search a city and get his weather in a chart"
     };
   },
@@ -231,7 +231,7 @@ export default {
 <style scoped>
 .error {
   position: relative;
-  top: 100px;
+  top: 50px;
   display: flex;
   flex-direction: column;
   border: 1px solid grey;
@@ -246,10 +246,11 @@ export default {
   height: 35px;
 }
 input {
-  font-size: 15px;
+  font-size: 12px;
   text-indent: 8px;
   width: 250px;
   border: 1px solid #474646;
+  border-radius: 2px;
 }
 span {
   margin-bottom: 15px;
@@ -258,8 +259,9 @@ button {
   width: 71px;
   background-color: black;
   color: white;
-  font-size: 16px;
+  font-size: 12px;
   border: unset;
+  border-radius: 2px;
 }
 .weather-widget {
   display: flex;
@@ -284,6 +286,7 @@ button {
   margin: 0;
 }
 .content {
+  padding: 4rem 0 3rem 0;
   display: flex;
   flex-direction: column;
   width: 68%;
@@ -307,15 +310,12 @@ button {
   width: 100% !important;
 }
 @media screen and (max-width: 700px) {
-  .content {
-    padding: 7rem 0 3rem 0;
+  input {
+    width: 150px;
   }
 }
 
 @media (min-width: 700px) {
-  .content {
-    padding: 10rem 0 3rem 0;
-  }
   .content-title {
     font-size: 17px;
   }

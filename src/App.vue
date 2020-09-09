@@ -22,7 +22,9 @@ export default {
 <style>
 body {
   margin: 0px;
+  background-color: #c5c5c5d6;
 }
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -31,7 +33,7 @@ body {
   letter-spacing: 1.3px;
 }
 .nav-link {
-  font-size: 15px;
+  font-size: 12px;
   letter-spacing: 1.4px;
   text-decoration: none;
   color: inherit;

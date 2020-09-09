@@ -38,7 +38,7 @@ export default {
       bitcoinsInfo: [],
       errors: [],
       error: "",
-      title: "Bitcoin Price Index",
+      title: "Bitcoin Price Index 💰",
       description: "Bitcoin prices, updated every minute",
       disclaimer: ""
     };
@@ -69,6 +69,7 @@ export default {
 
 <style scoped>
 .content {
+  padding: 4rem 0 3rem 0;
   display: flex;
   flex-direction: column;
   width: 68%;
@@ -95,11 +96,12 @@ li {
   font-size: 13px;
 }
 .card {
-  margin: 2rem auto;
-  padding: 2rem;
+  margin: 0rem auto 2rem auto;
+  padding: 1rem;
   border: 1px solid #aea5a5;
-  width: 50%;
+  width: 21rem;
   letter-spacing: 1.3px;
+  font-size: 12px;
 }
 .card-info {
   padding: 7px;
@@ -132,16 +134,8 @@ text {
   display: flex;
   flex-direction: column;
 }
-@media screen and (max-width: 700px) {
-  .content {
-    padding: 7rem 0 3rem 0;
-  }
-}
 
 @media (min-width: 700px) {
-  .content {
-    padding: 10rem 0 3rem 0;
-  }
   .content-title {
     font-size: 17px;
   }

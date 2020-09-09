@@ -3,7 +3,9 @@
     <Header />
     <div class="content">
       <span class="content-title" :name="title">{{ title }}</span>
-      <span class="content-description" :name="description">{{ description }}</span>
+      <span class="content-description" :name="description">{{
+        description
+      }}</span>
     </div>
     <main class="canvas">
       <canvas id="planet-chart"></canvas>
@@ -39,7 +41,7 @@ export default {
   data() {
     return {
       planetChartData,
-      title: "Planet's chart",
+      title: "Planet's chart 🌎",
       description: "Chart with number of moons and mass for each planet"
     };
   },
@@ -51,6 +53,7 @@ export default {
 
 <style scoped>
 .content {
+  padding: 4rem 0 3rem 0;
   display: flex;
   flex-direction: column;
   width: 68%;
@@ -66,22 +69,15 @@ export default {
   font-size: 12px;
 }
 .canvas {
-  width: 80%;
-  margin: 0 auto;
-  padding-bottom: 6rem;
+  display: flex;
+  justify-content: center;
 }
 #planet-chart {
   width: 80%;
 }
-@media screen and (max-width: 700px) {
-  .content {
-    padding: 7rem 0 3rem 0;
-  }
-}
-
 @media (min-width: 700px) {
-  .content {
-    padding: 10rem 0 3rem 0;
+  canvas {
+    max-width: 35rem;
   }
   .content-title {
     font-size: 17px;

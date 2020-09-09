@@ -2,7 +2,7 @@
   <div class="welcome">
     <Header />
     <div class="welcome-image">
-      <img src="../assets/planet.jpg" aria-hidden="true" />
+      <img src="../assets/planet.jpg" alt="image" />
     </div>
     <WelcomeCards />
     <Footer />
@@ -31,11 +31,7 @@ img {
 .welcome {
   position: absolute;
   top: 0px;
-  background-color: white;
+  background-color: #c5c5c5d6;
   width: 100%;
-}
-.welcome-image {
-  position: relative;
-  margin-top: 78px;
 }
 </style>

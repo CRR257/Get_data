@@ -7,7 +7,7 @@ App to practice how to get data:
     - Bitcoin: show Bitcoin prices, updated every minute from https://www.coindesk.com/coindesk-api
     - Weather: make a city's request to https://openweathermap.org/ and get temperature's results visualitzed in a chart
 
-https://get-data-crr257.firebaseapp.com
+[Live_demo](https://get-data-crr257.firebaseapp.com)
 
 ### Compiles and hot-reloads for development
 ```

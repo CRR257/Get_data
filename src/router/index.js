@@ -18,7 +18,7 @@ export default new Router({
       component: Welcome
     },
     {
-      path: "/planets",
+      path: "/planets-chart",
       name: "PlanetsChart",
       component: PlanetsChart
     },
