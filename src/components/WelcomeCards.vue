@@ -24,7 +24,7 @@ export default {
         {
           title: "Planet's Chart",
           about: "Chart with number of moons and mass for each planet",
-          route: "/planets"
+          route: "/planets-chart"
         },
         {
           title: "Planet's Survey",
@@ -85,6 +85,11 @@ export default {
 }
 .project-about {
   margin-top: 14px;
+}
+@media screen and (max-width: 375px) {
+  .projects-cards {
+    margin: 9px 3px;
+  }
 }
 @media screen and (max-width: 700px) {
   .projects-cards {
